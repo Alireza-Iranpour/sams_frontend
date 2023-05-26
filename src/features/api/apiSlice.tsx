@@ -7,10 +7,10 @@ export const apiSlice = createApi({
     baseUrl: "http://localhost:8000/",
     timeout: 20 * 1000,
     prepareHeaders: (headers, { getState }) => {
-      const authTokens = (getState() as RootState).auth.authTokens;
+      const authToken = (getState() as RootState).auth.authToken;
       // console.log(authTokens?.access);
-      if (authTokens) {
-        headers.set("Authorization", `Bearer ${authTokens.access}`);
+      if (authToken) {
+        headers.set("Authorization", `Token ${authToken.auth_token}`);
       }
       headers.set("Content-Type", "application/json");
       return headers;

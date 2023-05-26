@@ -5,7 +5,7 @@ const LoggedInRoutes = () => {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   return isAuthenticated ? (
-    <Navigate to="/workspaces" replace={true} />
+    <Navigate to="/profile" replace={true} />
   ) : (
     <Outlet />
   );

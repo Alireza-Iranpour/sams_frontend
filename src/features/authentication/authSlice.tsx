@@ -1,6 +1,5 @@
 import { createSlice, Dictionary, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../redux/store";
-// import jwt_decode from "jwt-decode";
 
 export interface decodedAccess {
   token_type: string;
@@ -13,68 +12,53 @@ export interface decodedAccess {
 }
 
 export interface authState {
-  authTokens: { refresh: string; access: string } | null;
+  authToken: { auth_token: string } | null;
   user: { firstName: string; lastName: string } | null;
   isAuthenticated: boolean;
 }
 
-const authTokens = localStorage.getItem("authTokens");
-let user = null;
-
-// if (authTokens) {
-//   const decoded_access: decodedAccess = jwt_decode(
-//     JSON.parse(authTokens).access
-//   );
-//   user = {
-//     firstName: decoded_access.first_name,
-//     lastName: decoded_access.last_name,
-//   };
-// }
+const authToken = localStorage.getItem("authToken");
+const user = localStorage.getItem("user");
 
 const initialState: authState = {
-  authTokens: authTokens ? JSON.parse(authTokens) : null,
-  user: user,
-  isAuthenticated: authTokens ? true : false,
+  authToken: authToken ? JSON.parse(authToken) : null,
+  user: user ? JSON.parse(user) : null,
+  isAuthenticated: authToken ? true : false,
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
   reducers: {
-    // setAuthTokens: (
-    //   state,
-    //   action: PayloadAction<{ authTokens: { refresh: string; access: string } }>
-    // ) => {
-    //   localStorage.setItem(
-    //     "authTokens",
-    //     JSON.stringify(action.payload.authTokens)
-    //   );
-    //   const decoded_access: decodedAccess = jwt_decode(
-    //     action.payload.authTokens.access
-    //   );
-    //   state.user = {
-    //     firstName: decoded_access.first_name,
-    //     lastName: decoded_access.last_name,
-    //   };
-    //   state.authTokens = action.payload.authTokens;
-    //   state.isAuthenticated = true;
-    // },
+    setAuthToken: (
+      state,
+      action: PayloadAction<{ authToken: { auth_token: string } }>
+    ) => {
+      localStorage.setItem(
+        "authToken",
+        JSON.stringify(action.payload.authToken)
+      );
+      state.authToken = action.payload.authToken;
+    },
 
-    // setUser: (
-    //   state,
-    //   action: PayloadAction<{ user: { firstName: string; lastName: string } }>
-    // ) => {
-    //   localStorage.setItem("user", JSON.stringify(action.payload.user));
-    //   state.user = action.payload.user;
-    //   state.isAuthenticated = true;
-    // },
+    setIsAuthenticated: (state, action) => {
+      state.isAuthenticated = action.payload;
+    },
+
+    setUser: (
+      state,
+      action: PayloadAction<{ user: { firstName: string; lastName: string } }>
+    ) => {
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      state.user = action.payload.user;
+      state.isAuthenticated = true;
+    },
     logout: (state) => {
       console.log("logging out");
-      localStorage.removeItem("authTokens");
+      localStorage.removeItem("authToken");
       console.log("token removed");
       localStorage.removeItem("user");
-      localStorage.removeItem("workingLms");
-      state.authTokens = null;
+      state.authToken = null;
       state.user = null;
       state.isAuthenticated = false;
     },
@@ -84,9 +68,7 @@ export const authSlice = createSlice({
 export const selectAuth = (state: RootState) => state.auth;
 
 // Action creators are generated for each case reducer function
-export const {
-  // setAuthTokens,
-  logout,
-} = authSlice.actions;
+export const { setAuthToken, setIsAuthenticated, setUser, logout } =
+  authSlice.actions;
 
 export default authSlice.reducer;

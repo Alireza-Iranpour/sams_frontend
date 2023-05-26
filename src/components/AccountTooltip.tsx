@@ -36,7 +36,7 @@ const AccountTooltip = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const authTokens = useAppSelector((state) => state.auth.authTokens);
+  const authToken = useAppSelector((state) => state.auth.authToken);
   const user = useAppSelector((state) => state.auth.user);
 
   const onLogoutClick = () => {
