@@ -27,8 +27,8 @@ export interface RegisterUserRequest {
   firstName: string;
   lastName: string;
   email: string;
-  password1: string;
-  password2: string;
+  agentCode: string;
+  upline: number;
 }
 
 export interface ActivateUserRequest {
@@ -97,16 +97,16 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     registerUser: builder.mutation<{}, RegisterUserRequest>({
       query: (data) => {
         return {
-          // url: "api/users/register/",
-          url: "auth/users/",
+          url: "auth/register_user/",
+          // url: "auth/users/",
           method: "post",
           headers: {},
           body: {
             first_name: data.firstName,
             last_name: data.lastName,
             email: data.email,
-            password: data.password1,
-            re_password: data.password2,
+            agent_code: data.agentCode,
+            upline_member: data.upline,
           },
         };
       },

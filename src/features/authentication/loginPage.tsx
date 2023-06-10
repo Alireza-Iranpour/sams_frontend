@@ -72,7 +72,13 @@ const LoginPage: React.FC = () => {
             );
             dispatch(setIsAuthenticated(true));
             navigate("/profile");
+          })
+          .catch((error) => {
+            console.error(error);
           });
+      })
+      .catch((error) => {
+        console.error(error);
       });
     // console.log(loginUserResult.data);
   };

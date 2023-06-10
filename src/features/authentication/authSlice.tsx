@@ -1,5 +1,6 @@
 import { createSlice, Dictionary, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../redux/store";
+import { RootState, store } from "../../redux/store";
+import { apiSlice } from "../api/apiSlice";
 
 export interface decodedAccess {
   token_type: string;

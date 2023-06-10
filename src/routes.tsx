@@ -6,6 +6,10 @@ import LoginPage from "./features/authentication/loginPage";
 import ProfilePage from "./features/userProfile/profilePage";
 import PrivateRoutes from "./features/utils/PrivateRoutes";
 import LoggedInRoutes from "./features/utils/LoggedInRoutes";
+import DashboardPage from "./features/agencyManagement/dashboardPage";
+import AddMemberPage from "./features/agencyManagement/addMemberPage";
+import SettingsPage from "./features/userProfile/settingsPage";
+import SessionEventsPage from "./features/agencyManagement/attendance/sessionEventsPage";
 
 const BaseRouter = () => {
   return (
@@ -18,6 +22,10 @@ const BaseRouter = () => {
 
         <Route element={<PrivateRoutes />}>
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/attendance" element={<SessionEventsPage />} />
+          <Route path="/add-member" element={<AddMemberPage />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>

@@ -59,7 +59,8 @@ const ResponsiveLayout: React.FC<Props> = ({ children }) => {
   ];
 
   if (isAuthenticated) {
-    pages.push({ title: "Dashboard", link: "/workspaces" });
+    pages.push({ title: "Dashboard", link: "/dashboard" });
+    pages.push({ title: "Attendance", link: "/attendance" });
   }
 
   useEffect(() => {
@@ -89,8 +90,11 @@ const ResponsiveLayout: React.FC<Props> = ({ children }) => {
       case location.pathname === "/pricing":
         setTabIndex(2);
         break;
-      case location.pathname.startsWith("/workspaces"):
+      case location.pathname.startsWith("/dashboard"):
         setTabIndex(3);
+        break;
+      case location.pathname.startsWith("/attendance"):
+        setTabIndex(4);
         break;
       default:
         setTabIndex(false);

@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { logout } from "../features/authentication/authSlice";
 import { useNavigate } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
+import { apiSlice } from "../features/api/apiSlice";
 
 function stringAvatar(name: string) {
   return {
@@ -41,6 +42,7 @@ const AccountTooltip = () => {
 
   const onLogoutClick = () => {
     dispatch(logout());
+    dispatch(apiSlice.util.resetApiState());
     navigate("/");
   };
 
